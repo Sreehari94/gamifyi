@@ -248,7 +248,6 @@ angular.module('Gamifyi', ['ui.router','ngSanitize','app.events','app.corporates
 
 
         var onloadPage = function() {
-            $scope.changeCityData('BLR');
             getMediaQueries();
         }
 
@@ -512,6 +511,7 @@ angular.module('Gamifyi', ['ui.router','ngSanitize','app.events','app.corporates
             $scope.setMetaDescription("The gamiFYI app helps in discovering places in a fun and engaging way. Buy tickets for curated events/quests/treasure hunts across cities and play with your friends and family using mobile device. Anyone can setup their own treasure hunt game for personal events in few simple steps and play from mobile. Corporate teams can use it for team-building activities in resorts, parks or office locations.");
                 
             if(cityCode){
+                console.log("CityCode:",cityCode);
                 $scope.changeCityData(cityCode);
                 $scope.setCityChangeEventListener(function(cityCode){ // This is called when user changes city
                     $state.go('app.home',{cityCode:cityCode});
@@ -592,5 +592,14 @@ angular.module('Gamifyi', ['ui.router','ngSanitize','app.events','app.corporates
                 url: '/:cityCode/:thIdentifier',
                 templateUrl: 'events.html',
                 controller:'EventCtrl'
+            })
+            .state('app.privacy', {
+                url: '/privacy-policy',
+                templateUrl: 'privacy_policy.html',
+                controller:function($scope){
+                    document.title='Privacy Policy - gamiFYI';
+                    $scope.setCityChangeEventListener(null);
+                    window.scrollTo(0, 0);
+                }
             })
     })
